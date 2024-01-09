@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <style>
+        /* Your styles for the login page */
+        .login-container {
+            width: 300px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        /* Add your custom styling here */
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h1>Login</h1>
+    <form id="login-form">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Login</button>
+    </form>
+    <p id="error-message" style="display: none; color: red;"></p>
+</div>
+
+<!-- ... (your HTML code remains the same) ... -->
+
+<script>
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        fetch('http://localhost:8000/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Invalid credentials');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Store the received token in localStorage
+                localStorage.setItem('authToken', data.token);
+
+                // Redirect to another page or perform any action needed after login
+                window.location.href = '/dashboard'; // Replace '/dashboard' with your desired URL
+            })
+            .catch(error => {
+                document.getElementById('error-message').textContent = error.message;
+                document.getElementById('error-message').style.display = 'block';
+            });
+    });
+</script>
+
+</body>
+</html>

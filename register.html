@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Page</title>
+    <style>
+        /* Your styles for the registration page */
+        .registration-container {
+            width: 300px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        /* Add your custom styling here */
+    </style>
+</head>
+<body>
+<div class="registration-container">
+    <h1>Register</h1>
+    <form id="registration-form">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+        <label for="first-name">First Name</label>
+        <input type="text" id="first-name" name="first_name" required>
+        <label for="last-name">Last Name</label>
+        <input type="text" id="last-name" name="last_name" required>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Register</button>
+    </form>
+    <p id="error-message" style="display: none; color: red;"></p>
+</div>
+
+<script>
+    document.getElementById('registration-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const firstName = document.getElementById('first-name').value;
+        const lastName = document.getElementById('last-name').value;
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        fetch('http://localhost:8000/api/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, first_name: firstName, last_name: lastName, username, password }),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Registration failed');
+                }
+                return response.json();
+            })
+            .then(data => {
+                localStorage.setItem('authToken', data.token);
+                window.location.href = '/dashboard'; // Redirect after successful registration
+            })
+            .catch(error => {
+                document.getElementById('error-message').textContent = error.message;
+                document.getElementById('error-message').style.display = 'block';
+            });
+    });
+</script>
+</body>
+</html>
