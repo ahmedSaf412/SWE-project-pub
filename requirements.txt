@@ -4,5 +4,5 @@ django-filter>=23.5
 psycopg2>=2.9.9
 psycopg2-binary>=2.9.9
 sqlparse>=0.4.4
-django-database-url>=2.1.0
+django-database-url>=1.0.3
 
