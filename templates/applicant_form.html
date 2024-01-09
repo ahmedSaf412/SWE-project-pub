@@ -1,0 +1,20 @@
+<!-- applicant_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Applicant Form</title>
+    <!-- Include CSS, JavaScript, or other necessary resources -->
+</head>
+<body>
+    <h1>Applicant Form</h1>
+    <form method="post">
+    {% csrf_token %}
+    {{ applicant_form.as_p }}
+    {{ documents_form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+
+
+</body>
+</html>
