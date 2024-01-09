@@ -25,7 +25,7 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.register('api/auth', AuthViewSet, basename='auth')
 
 
-urlpatterns = [
+urlpatterns = [ 
     path('admin/', admin.site.urls),  # This line includes the admin URLs
     path('', include(router.urls)),  # Include your existing URLs
     path('submit/', views.submit_application, name='submit_application'),

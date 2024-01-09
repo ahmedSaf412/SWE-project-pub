@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'SWEfix',
     'rest_framework',
     'rest_framework.authtoken',
@@ -54,6 +55,39 @@ REST_FRAMEWORK = {
 ]
 }
 
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    # Add other headers as needed
+]
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+    # Add other methods as needed
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:63343",
+    "http://127.0.0.1:your-frontend-port",
+    "http://[::1]:your-frontend-port",  # IPv6 localhost
+    # Add other origins as needed for different addresses or ports
+    "http://localhost",
+    "http://127.0.0.1",
+    "http://[::1]",  # IPv6 localhost
+    # Add other local origins without specifying ports
+    "http://your-frontend-domain.com",  # Allow your actual frontend domain for production
+    # Add other allowed origins if necessary for production
+    # This wildcard allows all origins (not recommended for production, use only for local development)
+]
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -62,6 +96,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'SWEfix.urls'
